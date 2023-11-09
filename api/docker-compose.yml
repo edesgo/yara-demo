@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    command: npm run start:dev
+    ports:
+      - "3000:3000"
+      - "9229:9229"

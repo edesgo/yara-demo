@@ -1,0 +1,104 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table Product {
+  product_id Int [pk, increment]
+  product_name String [not null]
+  size_per_unit Int [not null]
+  risk_type TypeRisk [not null]
+  status TypeStatus [not null, default: 'ACTIVE']
+  createdAt DateTime
+  StockMovement StockMovement [not null]
+}
+
+Table Warehouse {
+  warehouse_id Int [pk, increment]
+  warehouse_name String [not null]
+  max_stock_amount Int [not null]
+  risk_type TypeRisk [not null]
+  status TypeStatus [not null, default: 'ACTIVE']
+  createdAt DateTime
+  StockMovement StockMovement [not null]
+  UserWarehouse UserWarehouse [not null]
+}
+
+Table StockMovement {
+  movement_id Int [pk, increment]
+  warehouse_id Int [not null]
+  exp_imp_warehouse_id Int
+  product_id Int [not null]
+  movement_type TypeMovement [not null]
+  amount Int [not null]
+  units Int [not null]
+  movement_date DateTime [not null]
+  status TypeStatus [not null, default: 'ACTIVE']
+  createdAt DateTime
+  products_table Product [not null]
+  warehouses_table Warehouse [not null]
+}
+
+Table User {
+  user_id Int [pk, increment]
+  profile_id Int [not null]
+  user_name String [not null]
+  email String [not null]
+  password String [not null]
+  status TypeStatus [not null, default: 'ACTIVE']
+  profile_table Profile
+  UserWarehouse UserWarehouse [not null]
+}
+
+Table UserWarehouse {
+  user_id Int [not null]
+  warehouse_id Int [not null]
+  user_table User [not null]
+  warehouses_table Warehouse [not null]
+
+  indexes {
+    (warehouse_id, user_id) [pk]
+  }
+}
+
+Table ProfileRight {
+  profile_id Int [pk, increment]
+  warehouse Int [not null]
+  product Int [not null]
+  profile_table Profile [not null]
+}
+
+Table Profile {
+  profile_id Int [pk, increment]
+  profile String [not null]
+  status TypeStatus [not null, default: 'ACTIVE']
+  ProfileRight ProfileRight
+  User User [not null]
+}
+
+Enum TypeMovement {
+  EXPORTED
+  IMPORTED
+}
+
+Enum TypeRisk {
+  HAZARDOUS
+  NON_HAZARDOUS
+}
+
+Enum TypeStatus {
+  ACTIVE
+  LOCKED
+  DISABLED
+}
+
+Ref: StockMovement.product_id > Product.product_id
+
+Ref: StockMovement.warehouse_id > Warehouse.warehouse_id
+
+Ref: User.profile_id > Profile.profile_id
+
+Ref: UserWarehouse.user_id > User.user_id
+
+Ref: UserWarehouse.warehouse_id > Warehouse.warehouse_id
+
+Ref: ProfileRight.profile_id - Profile.profile_id

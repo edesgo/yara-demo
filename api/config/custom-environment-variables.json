@@ -1,0 +1,17 @@
+{
+    "app": {
+        "name": "APP_NAME",
+        "port": "APP_PORT",
+        "jwtSecret": "JWT_SECRET",
+        "host": "HOST",
+        "env": "NODE_ENV"
+    },
+    "db": {
+        "database": "DB_DATABASE",
+        "schema":"DB_SCHEMA",
+        "host": "DB_HOST",
+        "port": "DB_PORT",
+        "user": "DB_USER",
+        "pass": "DB_PASS"
+    }
+}

@@ -1,0 +1,101 @@
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+// Define enums
+enum TypeMovement {
+  EXPORTED
+  IMPORTED
+}
+
+enum TypeRisk {
+  HAZARDOUS
+  NON_HAZARDOUS
+}
+
+enum TypeStatus {
+  ACTIVE
+  LOCKED
+  DISABLED
+}
+
+// Define models
+model Product {
+  product_id    Int             @id @default(autoincrement())
+  product_name  String
+  size_per_unit Int
+  risk_type     TypeRisk
+  status        TypeStatus      @default(ACTIVE)
+  createdAt     DateTime      @default(dbgenerated("NOW()"))
+  StockMovement StockMovement[]
+}
+
+model Warehouse {
+  warehouse_id     Int             @id @default(autoincrement())
+  warehouse_name   String
+  max_stock_amount Int
+  risk_type        TypeRisk
+  status           TypeStatus      @default(ACTIVE)
+  createdAt        DateTime        @default(dbgenerated("NOW()"))
+  StockMovement    StockMovement[]
+  UserWarehouse    UserWarehouse[]
+}
+
+model StockMovement {
+  movement_id         Int          @id @default(autoincrement())
+  warehouse_id        Int
+  exp_imp_warehouse_id Int?      
+  product_id          Int
+  movement_type       TypeMovement
+  amount              Int
+  units               Int
+  movement_date       DateTime
+  status              TypeStatus   @default(ACTIVE)
+  createdAt           DateTime    @default(dbgenerated("NOW()"))
+  products_table      Product      @relation(fields: [product_id], references: [product_id])
+  warehouses_table    Warehouse    @relation(fields: [warehouse_id], references: [warehouse_id])
+}
+
+model User {
+  user_id       Int             @id @default(autoincrement())
+  profile_id    Int
+  user_name     String
+  email         String
+  password      String
+  status        TypeStatus      @default(ACTIVE)
+  profile_table Profile?        @relation(fields: [profile_id], references: [profile_id])
+  UserWarehouse UserWarehouse[]
+}
+
+model UserWarehouse {
+  user_id          Int
+  warehouse_id     Int
+  user_table       User      @relation(fields: [user_id], references: [user_id])
+  warehouses_table Warehouse @relation(fields: [warehouse_id], references: [warehouse_id])
+
+  @@id([warehouse_id, user_id], name: "warehouse_user_id")
+}
+
+model ProfileRight {
+  profile_id    Int     @id @default(autoincrement())
+  warehouse     Int
+  product       Int
+  profile_table Profile @relation(fields: [profile_id], references: [profile_id])
+}
+
+model Profile {
+  profile_id   Int           @id @default(autoincrement())
+  profile      String
+  status       TypeStatus    @default(ACTIVE)
+  ProfileRight ProfileRight?
+  User         User[]
+}

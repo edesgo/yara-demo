@@ -1,0 +1,8 @@
+type Operation {
+    wr_utilization: Int,
+    wr_stock: Int,
+    wr_availability: Int
+}
+type Query {
+  operation(warehouse_id: Int!): Operation
+}

@@ -1,0 +1,30 @@
+query getWarehouses {
+  warehouses {
+    warehouse_name
+    warehouse_id
+  }
+}
+query Operation($warehouseId: Int!) {
+  operation(warehouse_id: $warehouseId) {
+    wr_utilization
+    wr_stock
+    wr_availability
+  }
+}
+query getStockMovementWarehouse($warehouseId: Int!) {
+  stockMovementWarehouse(warehouse_id: $warehouseId) {
+    movement_id
+    exp_imp_warehouse_id
+    warehouse_id
+    product_id
+    movement_type
+    units
+    amount
+    movement_date
+    status
+    createdAt
+    products_table {
+      product_name
+    }
+  }
+}

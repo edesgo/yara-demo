@@ -1,0 +1,20 @@
+query getProducts{
+    products {
+      product_id
+      product_name
+      size_per_unit
+      risk_type
+      status
+    }
+  }
+
+
+
+mutation CreateProduct($input: ProductInput!) {
+  createProduct(input: $input) {
+    product_id
+    product_name
+    size_per_unit
+    status
+  }
+}

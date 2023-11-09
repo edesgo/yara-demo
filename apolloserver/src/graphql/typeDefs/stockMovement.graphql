@@ -1,0 +1,44 @@
+type StockMovement {
+  movement_id: Int!
+  exp_imp_warehouse_id: Int
+  warehouse_id: Int!
+  product_id: Int!
+  movement_type: TypeMovement!
+  units: Int!
+  amount: Int!
+  movement_date: DateTime!
+  status: TypeStatus!
+  createdAt: DateTime!
+  products_table: Product
+}
+
+type Query {
+    stockMovementWarehouse(warehouse_id: Int!): [StockMovement]
+    stockMovementProduct(product_id:Int!): [StockMovement]
+    stockMovements: [StockMovement]
+}
+
+input importStockMovementInput{
+  warehouse_id: Int!
+  product_id: Int!
+  movement_type: TypeMovement!
+  units: Int!
+  amount: Int!
+  movement_date: DateTime!
+  status: TypeStatus!
+}
+input exportStockMovementInput{
+  warehouse_id: Int!
+  exp_imp_warehouse_id: Int!
+  product_id: Int!
+  movement_type: TypeMovement!
+  units: Int!
+  amount: Int!
+  movement_date: DateTime!
+  status: TypeStatus!
+}
+
+type Mutation {
+  importStockMovement(input: importStockMovementInput!): StockMovement 
+  exportStockMovement(input: exportStockMovementInput!): StockMovement 
+}

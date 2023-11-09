@@ -1,0 +1,19 @@
+type ProfileRight {
+  profile_id: Int!
+  warehouse: Int!
+  product: Int!
+}
+
+type Query {
+  profileRight(profile_id: Int!): ProfileRight
+  profileRights: [ProfileRight]
+}
+
+input ProfileRightInput {
+  profile_id: Int!
+  warehouse: Int!
+  product: Int!
+}
+type Mutation {
+  createProfileRight(input:ProfileRightInput!): ProfileRight
+}

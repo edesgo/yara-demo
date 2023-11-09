@@ -1,0 +1,25 @@
+
+type Product {
+  product_id: Int!
+  product_name: String!
+  size_per_unit: Int!
+  risk_type: TypeRisk!
+  status: TypeStatus!
+  createdAt: DateTime!
+  StockMovement: [StockMovement]
+}
+type Query {
+  product(product_id: Int!): Product
+  products: [Product]
+}
+
+input ProductInput {
+  product_name: String
+  size_per_unit: Int
+  risk_type: TypeRisk
+  status: TypeStatus
+}
+
+type Mutation {
+  createProduct(input: ProductInput!): Product
+}

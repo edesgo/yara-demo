@@ -1,0 +1,25 @@
+type Warehouse {
+  warehouse_id: Int!
+  warehouse_name: String!
+  max_stock_amount: Int!
+  risk_type: TypeRisk!
+  status: TypeStatus!
+  createdAt: DateTime!
+  StockMovement: [StockMovement]
+  UserWarehouse: [UserWarehouse]
+}
+type Query {
+  warehouse(warehouse_id: Int!): Warehouse
+  warehouses: [Warehouse]
+}
+
+input WarehouseInput {
+  warehouse_name: String
+  max_stock_amount: Int!
+  risk_type: TypeRisk!
+  status: TypeStatus!
+}
+
+type Mutation {
+  createWarehouse(input: WarehouseInput!): Warehouse
+}

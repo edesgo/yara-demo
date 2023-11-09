@@ -1,0 +1,26 @@
+version: '2'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - schpar:/app
+    env_file:
+      - .env
+    command: npm run start:dev
+    ports:
+      - "3000:3000"
+      - "9229:9229"
+volumes:
+  schpar:
+
+x-mutagen:
+  sync:
+    defaults:
+      ignore:
+        vcs: true
+    schpar:
+      alpha: "."
+      beta: "volume://schpar"
+      mode: "two-way-resolved"

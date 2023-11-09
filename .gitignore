@@ -1,0 +1,22 @@
+################## Global
+.env
+#Mac files
+*.DS_Store 
+
+################### Apollo Server
+ApolloServer/node_modules
+ApolloServer/build
+################### React App
+ReactApp/node_modules
+################### API
+API/.env
+API/node_modules
+API/.npm
+API/.eslintcac
+#Elastic Beanstalk Files
+API/.elasticbeanstalk/*
+API/!.elasticbeanstalk/*.cfg.yml
+API/!.elasticbeanstalk/*.global.yml
+API/!.elasticbeanstalk/config.yml
+#Distribution folder
+API/dist/*

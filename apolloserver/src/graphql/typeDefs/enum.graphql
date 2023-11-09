@@ -1,0 +1,15 @@
+enum TypeMovement {
+  EXPORTED
+  IMPORTED
+}
+
+enum TypeRisk {
+  HAZARDOUS
+  NON_HAZARDOUS
+}
+
+enum TypeStatus {
+  ACTIVE
+  LOCKED
+  DISABLED
+}

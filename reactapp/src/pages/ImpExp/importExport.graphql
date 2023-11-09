@@ -1,0 +1,42 @@
+query getProdAndWer {
+  products {
+    product_id
+    product_name
+    risk_type
+    size_per_unit
+  }
+  warehouses {
+    warehouse_id
+    warehouse_name
+    risk_type
+  }
+}
+
+mutation CreateStocklImport($input: importStockMovementInput!) {
+  importStockMovement(input: $input) {
+    movement_id
+    warehouse_id
+    product_id
+    movement_type
+    units
+    amount
+    movement_date
+    status
+    createdAt
+  }
+}
+
+mutation CreateStocklExportt($input: exportStockMovementInput!) {
+  exportStockMovement(input: $input) {
+    movement_id
+    exp_imp_warehouse_id
+    warehouse_id
+    product_id
+    movement_type
+    units
+    amount
+    movement_date
+    status
+    createdAt
+  }
+}

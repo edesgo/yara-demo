@@ -1,0 +1,28 @@
+image: node:latest
+
+stages:
+  - build
+  - aws-deploy
+
+cache:
+  paths:
+    - node_modules/ 
+
+install_dependencies:
+  stage: build
+  script:
+    - npm install
+    - npm run compile
+  artifacts:
+    paths:
+      - node_modules/
+aws-deploy-prod:
+  image: 'python:latest'
+  stage: aws-deploy
+  before_script:
+    - pip install awsebcli --upgrade 
+  script:
+    - eb deploy envName #change envName for the ELB environment value
+  only:    
+    - tags
+    - master

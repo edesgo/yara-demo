@@ -1,0 +1,16 @@
+type UserWarehouse {
+  user_id: Int!
+  warehouse_id: Int!
+}
+
+type Query {
+  userWarehouses: [UserWarehouse]
+}
+
+input UserWarehouseInput {
+  user_id: Int!
+  warehouse_id: Int!
+}
+type Mutation {
+  createUserWarehouse(input:UserWarehouseInput!): UserWarehouse
+}

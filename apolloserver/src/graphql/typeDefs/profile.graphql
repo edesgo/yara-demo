@@ -1,0 +1,20 @@
+type Profile {
+  profile_id: Int!
+  profile: String!
+  status: TypeStatus!
+  ProfileRight: ProfileRight
+  User: [User]
+}
+
+type Query {
+  profile(profile_id: Int!): Profile
+  profiles: [Profile]
+}
+
+input ProfileInput {
+  profile: String!
+  status: TypeStatus!
+}
+type Mutation {
+  createProfile(input:ProfileInput!): Profile
+}
